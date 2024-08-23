@@ -1,0 +1,99 @@
+﻿@using eTicaret.Entity
+@model eTicaret.Models.ProductCommentModel
+
+@{
+    ViewBag.Title = "Ürün Detay ve Yorumlar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var currentUser = User.Identity.Name;
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <!-- Product Section -->
+            <div class="card mb-4 shadow-sm">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="/Upload/@Model.Product.Image" class="img-fluid rounded-start" style="max-height: 300px;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">@Model.Product.Name</h5>
+                            <p class="card-text">@Model.Product.Description</p>
+                            <p class="card-text"><strong>Fiyat: </strong> <span class="text-success">@Model.Product.Price.ToString("c")</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comment Form -->
+            <div class="mb-4">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="card p-4 shadow-sm">
+                        <h4>Yorum Yapın</h4>
+                        @using (Html.BeginForm("AddComment", "Com", FormMethod.Post))
+                        {
+                            <div class="form-group mb-3">
+                                @Html.Label("Yorumunuz:")
+                                @Html.TextBox("CommentDes", null, new { @class = "form-control", @placeholder = "Yorumunuzu buraya yazın..." })
+                            </div>
+                            <button type="submit" class="btn btn-primary">Gönder</button>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center">
+                        <h5>Hala kayıt olmadınız mı?</h5>
+                        <a href="/Account/Register" class="btn btn-outline-primary mt-3">Kayıt Ol</a>
+                    </div>
+                }
+            </div>
+
+            <!-- Comments Section -->
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h4>Yorumlar</h4>
+                </div>
+                <div class="card-body">
+                    @if (Model.Commentlines != null && Model.Commentlines.Any())
+                    {
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Kullanıcı</th>
+                                    <th>Yorum</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Commentlines)
+                                {
+                                    <tr>
+                                        <td>@item.UserName</td>
+                                        <td>@item.CommentsDes</td>
+                                        <td>
+                                            @if (item.UserName == currentUser)
+                                            {
+                                                using (Html.BeginForm("RemoveComment", "Com", FormMethod.Post))
+                                                {
+                                                    @Html.Hidden("Id", item.Id)
+                                                    <button class="btn btn-danger btn-sm">Sil</button>
+                                                }
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p class="text-muted">Henüz yorum yapılmamış.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

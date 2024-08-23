@@ -1,0 +1,81 @@
+﻿
+@model IEnumerable<eTicaret.Models.UserCartModel>
+@{
+    ViewBag.Title = "Sepetiniz";
+}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center mb-4">Sepetiniz</h2>
+            <hr />
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Ürün Adedi</th>
+                            <th scope="col">Ürün İsmi</th>
+                            <th scope="col">Fiyat</th>
+                            <th scope="col">Toplam Fiyat</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    <img src="~/Upload/@item.Image" class="img-fluid rounded" alt="@item.ProductName" style="max-width: 70px; height: auto;" />
+                                </td>
+                                <td>@item.Quantitycart</td>
+                                <td>@item.ProductName</td>
+                                <td>@item.Price.ToString("c")</td>
+                                <td>
+                                    @((item.Product.Price * item.Quantitycart).ToString("c"))
+                                </td>
+                                <td>
+                                    @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("Id", item.Product.Id)
+                                        <button type="submit" class="btn btn-outline-success  btn-sm ">
+                                            <i class="bi bi-bag-plus"></i>
+                                        </button>
+                                    }
+                                    @using (Html.BeginForm("RemoveToCart", "Cart", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("Id", item.Product.Id)
+                                        <button type="submit" class="btn btn-outline-danger btn-sm me-2 mt-1">
+                                            <i class="bi bi-bag-dash"></i>
+                                        </button>
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr class="table-white text-dark">
+                            <td colspan="5" class="text-end">Total @ViewBag.TotalPrice.ToString("c")</td>
+
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="text-center mt-4">
+                    <a href="/Home/List" class="btn btn-outline-primary me-2">
+                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                        Alışverişe Devam Et
+                    </a>
+                    <a href="/Cart/Checkout" class="btn btn-outline-success">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                        Alışverişi Tamamla
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

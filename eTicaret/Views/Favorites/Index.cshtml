@@ -1,0 +1,47 @@
+﻿@model IEnumerable<eTicaret.Models.UserFavModel>
+@{
+    ViewBag.Title = "Favorileriniz";
+}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center mb-4">Favorileriniz</h2>
+            <hr />
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col" class="text-center">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    <img src="~/Upload/@item.Image" class="img-fluid rounded" alt="@item.ProductName" style="max-width: 70px; height: auto;" />
+                                </td>
+                                <td>@item.ProductName</td>
+                                <td>@item.Price.ToString("c")</td>
+                                <td class="text-center">
+                                    @using (Html.BeginForm("RemoveFromFav", "Favorites"))
+                                    {
+                                        @Html.Hidden("Id", item.ProductId)
+                                        <button type="submit" class="btn btn-danger btn-sm" title="Remove from Favorites">
+                                            <i class="bi bi-heartbreak"></i>
+                                        </button>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

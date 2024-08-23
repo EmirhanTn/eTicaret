@@ -1,0 +1,56 @@
+﻿@model IEnumerable<eTicaret.Entity.Adress>
+@{
+    ViewBag.Title = "CheckOut";
+}
+
+<div class="container ">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Sipariş Bilgileri</h2>
+            <p>Lütfen sipariş adresi seçin</p>
+            <hr />
+            <form action="" method="post">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col">Ad</th>
+                                <th scope="col">Soyad</th>
+                                <th scope="col">Adres Adı</th>
+                                <th scope="col">Adres Bilgisi</th>
+                                <th scope="col">İl</th>
+                                <th scope="col">İlçe</th>
+                                <th scope="col">Mahalle</th>
+                                <th scope="col">Posta Kodu</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.Surname</td>
+                                    <td>@item.AdresBasligi</td>
+                                    <td>@item.Adres</td>
+                                    <td>@item.Il</td>
+                                    <td>@item.Ilce</td>
+                                    <td>@item.Mahalle</td>
+                                    <td>@item.PostaKodu</td>
+                                    <td class="text-center">
+                                        @using (Html.BeginForm("SaveOrder", "Cart"))
+                                        {
+                                        @Html.Hidden("Id", item.Id)
+                                        <button class="btn btn-outline-success" name="selectedAddressId" value="@item.Id" ><i class="bi bi-bag-plus"></i> </button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <button type="submit" class="btn btn-primary">Siparişi Onayla</button>
+            </form>
+        </div>
+    </div>
+</div>

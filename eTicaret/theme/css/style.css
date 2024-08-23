@@ -1,0 +1,49 @@
+﻿.jumbotron{
+        background-image: url("../img/bg.jpg");
+        background-size: cover;
+        height: 100%;
+}
+
+#write-review{
+
+    margin-left: -50px;
+}
+
+#product-price{
+
+    font-size:28px;
+    color:red;
+
+}
+
+.card-title{
+
+    font-size: 20px;
+    font-weight: 300;
+    color: #484848;
+    line-height: 1.35em;
+    height:60px;
+}
+
+.card-text {
+    font-size: 20px;
+}
+
+.product-price{
+
+    color: darkred;
+    font-weight: 30;
+    font-size: 17px;
+}
+
+.description{
+    font-size: 15px;
+    height: 40px;
+}
+
+#product-details h1{
+    font-size:20px;
+    font-weight: 700;
+
+
+}

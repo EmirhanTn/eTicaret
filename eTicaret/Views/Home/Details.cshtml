@@ -1,0 +1,88 @@
+﻿@using eTicaret.Entity;
+
+@model eTicaret.Models.ProductDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<br />
+<br />
+<div id="product-details" class="container pb-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <img src="/Upload/@Model.Product.Image" alt="Alternate Text" class="img-fluid rounded w-100" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <h1 class="display-4">@Model.Product.Name</h1>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-12 d-flex align-items-center">
+                    @if (Model.Product.IsApproved)
+                    {
+                        <span class="badge bg-success text-white me-2 p-2">In Stock</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger text-white me-2 p-2">Out of Stock</span>
+                    }
+                    <span class="product-number text-muted">#123456</span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <p id="description" class="text-muted">@Model.Product.Description</p>
+                </div>
+            </div>
+            <div class="row mb-3 ms-5">
+                <div id="write-review" class="col-md-12">
+                    <a class="btn btn-outline-primary" href="/Com/Index/@Model.Product.Id">Yorum Yap</a>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <h4 id="product-price" class="display-6">@Model.Product.Price TL</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-start">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        using (Html.BeginForm("AddToCart", "Cart"))
+                        {
+                            @Html.Hidden("Id", Model.Product.Id)
+                            <button class="btn btn-outline-success"><i class="bi bi-bag-plus"></i> Sepete Ekle</button>
+                        }
+                    }
+                    else
+                    {
+                        <a href="/Account/Register" class="btn btn-outline-primary">Kayıt Ol</a>
+                    }
+
+
+                    @using (Html.BeginForm(Model.IsFav ? "RemoveFromFav" : "AddToFav", "Favorites"))
+                    {
+                        @Html.Hidden("Id", Model.Product.Id)
+                        if (Model.IsFav)
+                        {
+                            <button type="submit" class="btn btn-danger ms-2">
+                                <i class="bi bi-heartbreak"></i> Favorilerden Çıkar
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-outline-warning ms-2">
+                                <i class="bi bi-heart"></i> Favorilere Ekle
+                            </button>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

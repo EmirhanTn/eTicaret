@@ -1,0 +1,35 @@
+﻿@model IEnumerable<eTicaret.Entity.Category>
+@{
+
+    var SelectedCategory = Url.RequestContext.RouteData.Values["id"];
+}
+
+<ul class="list-group">
+
+    <a href="/Home/list" class="list-group-item"><i class="bi bi-arrow-90deg-right"></i> Tüm Katagoriler </a>
+    @foreach (var item in Model)
+    {
+        if (SelectedCategory != null)
+        {
+            if (item.Id == int.Parse(SelectedCategory.ToString()))
+            {
+                <a href="/Home/List/@item.Id" class="list-group-item active"><i class="bi bi-arrow-90deg-right"></i> @item.Name</a>
+
+            }
+            else
+            {
+                <a href="/Home/List/@item.Id" class="list-group-item"><i class="bi bi-arrow-90deg-right"></i> @item.Name</a>
+
+            }
+        }
+        else
+        {
+            <a href="/Home/List/@item.Id" class="list-group-item"><i class="bi bi-arrow-90deg-right"></i> @item.Name</a>
+
+        }
+
+
+    }
+
+</ul>
+

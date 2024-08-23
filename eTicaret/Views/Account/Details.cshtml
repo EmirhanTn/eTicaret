@@ -1,0 +1,101 @@
+﻿@model eTicaret.Models.OrderDetailsModel
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container ">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Sipariş Detay Bilgileri</h2>
+            <hr />
+            @if (TempData["message"] != null)
+            {
+                <div class="alert alert-success">
+                    TempData["message"]
+                </div>
+
+            }
+        <dl class="row">
+
+
+            <dt class="col-sm-3">Username</dt>
+            <dd class="col-sm-9">@Model.Username</dd>
+
+            <dt class="col-sm-3">Order State</dt>
+            <dd class="col-sm-9">
+                @if (Model.OrderState == eTicaret.Entity.EnumOrderState.Waiting)
+                {
+                    <span class="badge text-bg-danger"> @Model.OrderState</span>
+                }
+                else if (Model.OrderState == eTicaret.Entity.EnumOrderState.Completed)
+                {
+                    <span class="badge text-bg-success"> @Model.OrderState</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3">OrderId</dt>
+            <dd class="col-sm-9">@Model.OrderId</dd>
+
+            <dt class="col-sm-3">Order Number</dt>
+            <dd class="col-sm-9">@Model.OrderNumber</dd>
+
+            <dt class="col-sm-3">Total</dt>
+            <dd class="col-sm-9"> @Model.Total.ToString("c")</dd>
+
+            <dt class="col-sm-3">Order Date</dt>
+            <dd class="col-sm-9">@Model.OrderDate</dd>
+
+
+
+
+            <dt class="col-sm-3">Adres</dt>
+            <dd class="col-sm-9">
+                @Model.AdresBasligi
+                <hr />
+                @Model.Adres
+                <br />
+                @Model.Il - @Model.Ilce - @Model.Mahalle
+                <br />
+                @Model.PostaKodu
+
+
+            </dd>
+            <dt class="col-sm-3">Ürün Bilgileri</dt>
+            <dd class="col-sm-9">
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Orderlines)
+
+                        {
+                            <tr>
+                                <td><img src="~/Upload/@item.Image " width="70" /></td>
+                                <td>@item.ProductName</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Price.ToString("c")</td>
+                                <td><a href="/home/Details/@item.ProductId" class="btn btn-primary" target="_blank">product Details</a></td>
+
+                            </tr>
+                        }
+
+
+
+                    </tbody>
+                </table>
+        </dl>
+
+
+        </div>
+    </div>
+
+</div>
+

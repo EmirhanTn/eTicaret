@@ -48,19 +48,12 @@ namespace eTicaretsonson21.Controllers
             var product = db.Products.FirstOrDefault(i => i.Id == Id);
             if (product == null)
             {
-
-
                 return RedirectToAction("Index");
             }
-
             var username = User.Identity.Name;
-
-
             var existingCart = db.Carts.FirstOrDefault(i => i.ProductId == Id && i.UserName == username);
-
             if (existingCart == null)
             {
-
                 db.Carts.Add(new CartTable()
                 {
                     ProductId = product.Id,
@@ -70,13 +63,9 @@ namespace eTicaretsonson21.Controllers
             }
             else
             {
-
                 existingCart.Quantitycart += 1;
             }
-
-
             db.SaveChanges(); 
-
             return RedirectToAction("Index");
         }
         public ActionResult RemoveToCart(int Id)

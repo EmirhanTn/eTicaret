@@ -40,8 +40,6 @@ namespace eTicaret.Controllers
         }
 
         public ActionResult AddToFav(int Id)
-
-
         {
             var product = db.Products.FirstOrDefault(i => i.Id == Id);
             var existingFav = db.favoriteTables.FirstOrDefault(i => i.ProductId == Id && i.UserName == User.Identity.Name);
@@ -82,10 +80,6 @@ namespace eTicaret.Controllers
 
             return fav;
         }
-
-       
-       
-  
 
     }
 }

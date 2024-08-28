@@ -23,14 +23,13 @@ namespace eTicaret.Controllers
                     UserName= i.UserName,
                     CommentsDes = i.CommentsDes,
                     ProductId = i.ProductId,
-                   
                     
                 }).ToList();
 
             var productCommentModel = new ProductCommentModel
             {
-                Product = product, // Ürünü modele ekliyoruz
-                Commentlines = comments // Yorumları modele ekliyoruz
+                Product = product,
+                Commentlines = comments
             };
 
             return View(productCommentModel);

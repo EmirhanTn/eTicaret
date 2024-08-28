@@ -88,18 +88,14 @@ namespace eTicaret.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 var user = new ApplicationUser();
                 user.Name = model.Name;
                 user.Surname = model.Surname;
                 user.Email = model.Email;
                 user.UserName = model.Username;
-
                 var result = _userManager.Create(user, model.Password);
-
                 if (result.Succeeded)
                 {
-
                     if (_roleManager.RoleExists("user"))
                     {
                         _userManager.AddToRole(user.Id, "user");
@@ -110,9 +106,7 @@ namespace eTicaret.Controllers
                 {
                     ModelState.AddModelError("RegisterUserError", "Kullanıcı  oluşturma hatası.");
                 }
-
             }
-
             return View(model);
         }
 

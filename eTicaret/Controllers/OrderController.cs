@@ -28,11 +28,6 @@ namespace eTicaret.Controllers
                 Count = i.Orderlines.Count
             }).OrderByDescending(i => i.OrderDate).ToList();
 
-
-
-
-
-
             return View(orders);
         }
 

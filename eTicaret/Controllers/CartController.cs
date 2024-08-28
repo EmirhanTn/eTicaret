@@ -144,7 +144,7 @@ namespace eTicaretsonson21.Controllers
         [HttpPost]
         public ActionResult SaveOrder(int selectedAddressId)
         {
-            // Fetch the selected address
+           
             var selectedAddress = db.adresses.SingleOrDefault(a => a.Id == selectedAddressId);
             
 

@@ -11,7 +11,10 @@ namespace eTicaret.Entity
     {
         [Display(Name = "Onay Bekleniyor")]
         Waiting,
-        [Display(Name="Soyadınız")]
-        Completed
+        [Display(Name="Tamamlandı")]
+        Completed,
+        [Display(Name = "Kargoya Verildi")]
+        Shipping
+
     }
 }
